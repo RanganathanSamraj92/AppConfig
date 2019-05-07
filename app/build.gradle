@@ -13,13 +13,13 @@ publish {
     def artifactProjectID = 'baseappconfig'
     def publishVersionID = '1.0.0'
 
-    userOrg = 'Ranganathan Samraj'
+    userOrg = 'androidplant'
     repoName = 'BaseAppConfig'
     groupId = groupProjectID
     artifactId = artifactProjectID
     publishVersion = publishVersionID
     desc = 'Android library for displaying toast based on msg from caller. '
-    website = 'https://github.com/anitaa1990/Optimize'
+    website = 'https://github.com/RanganathanSamraj92/AppConfig'
 }
 
 
