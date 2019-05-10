@@ -33,7 +33,7 @@ open class BaseAppActivity : AppCompatActivity() {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 
-    fun makeLog(key: String, value: String) {
+    open fun makeLog(key: String, value: String) {
         Log.w(key, value)
     }
 
