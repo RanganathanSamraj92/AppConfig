@@ -77,6 +77,8 @@ object Libs {
 
     val material = "com.google.android.material:material:${Versions.material_version}"
 
+    val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines_version}"
+
     val picasso = "com.squareup.picasso:picasso:${Versions.picasso_version}"
 
     val sdp = "com.intuit.sdp:sdp-android:${Versions.sdp_version}"

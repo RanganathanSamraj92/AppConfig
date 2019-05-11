@@ -29,6 +29,7 @@ dependencies {
     implementation(Libs.picasso)
     implementation(Libs.runtimePermissions)
     implementation(Libs.material)
+    implementation(Libs.coroutines)
 }
 
 
