@@ -29,6 +29,7 @@ android {
 }
 
 dependencies {
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     /*kotlin*/
     implementation(Libs.Kotlin.kotlin_std)
     /*androidx*/
@@ -40,6 +41,10 @@ dependencies {
     implementation(Libs.runtimePermissions)
     implementation(Libs.material)
     implementation(Libs.coroutines)
+    implementation(Libs.Test.espresso_core)
+    implementation(Libs.Test.runner)
+
+
 }
 
 
