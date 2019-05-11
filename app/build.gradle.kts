@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.com.amazonaws.util.IOUtils.release
+
 plugins {
     id("com.android.library")
     id("kotlin-android")
@@ -14,7 +16,15 @@ android {
         targetSdkVersion(AppConfig.targetSdkVersion)
         versionCode = AppConfig.versionCode
         versionName = AppConfig.versionName
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    buildTypes {
+        maybeCreate("release").apply {
+            isMinifyEnabled = false
+        }
+    }
+
 
 }
 
@@ -49,12 +59,3 @@ dependencies {
     website = 'https://github.com/RanganathanSamraj92/AppConfig'
 }*/
 
-
-
-/*
-dependencies {
-
-    implementation 'androidx.core:core-ktx:1.0.1'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-}
-*/
