@@ -1,71 +1,73 @@
 package dev.app.baseappconfig.base
 
-import android.app.Notification
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.Context
-import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
+import android.content.DialogInterface
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.ConnectivityManager
+import android.net.Network
 import android.net.Uri
+import android.os.Build
+import android.os.Bundle
 import android.os.Vibrator
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
-import android.text.method.TextKeyListener.clear
-import android.content.Intent
-import android.os.Bundle
-import java.io.Serializable
-import android.content.DialogInterface
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import com.github.florent37.runtimepermission.kotlin.PermissionException
+import com.github.florent37.runtimepermission.kotlin.coroutines.experimental.askPermission
+import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import dev.app.baseappconfig.R
+import java.io.Serializable
 
 
+open class BaseAppActivity : AppImagePickerActivity() {
 
+    companion object {
 
-open class BaseAppActivity : AppCompatActivity() {
+        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+        fun makeIntent(context: Context, cls: Class<*>, intentData: Any): Intent {
+            val intent = Intent(context, cls)
+            if (intentData != "") {
+                intent.putExtra("intent_data", intentData as Serializable)
+            }
+            val options = ActivityOptions.makeSceneTransitionAnimation(context as Activity?)
+            ContextCompat.startActivity(context, intent, options.toBundle())
+            //ContextCompat.startActivity(context, intent, null)
+            return intent
+        }
 
-    open fun showToast(context: Context, msg: String) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-    }
-
-    open fun makeLog(key: String, value: String) {
-        Log.w(key, value)
-    }
-
-    open fun capitalize(s: String): String {
-        if (s.isEmpty())
-            return s
-        val sb = StringBuilder(s)
-        sb.setCharAt(0, Character.toUpperCase(sb[0]))
-        return sb.toString()
-    }
-
-    open fun hideSoftKey(mCon: Context) {
-        val activity = mCon as AppCompatActivity
-        if (activity.currentFocus != null) {
-            val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(activity.currentFocus!!.windowToken, 0)
+        open fun makeLog(msg: String) {
+            Log.w("base", msg)
         }
     }
 
-    open fun isNetworkAvailable(mCon: Context): Boolean {
-        val cm = mCon.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-        return cm.activeNetworkInfo != null
+    open fun loadImage(uri: Uri, imageView: ImageView, placeHolder: Int, placeHolderError: Int,progressBar:View) {
+        progressBar.visibility = View.VISIBLE
+        Picasso.get().load(uri)
+            .placeholder(placeHolder)
+            .error(placeHolderError)
+            .into(imageView, object : Callback {
+            override fun onSuccess() {
+                progressBar.visibility = View.GONE
+            }
+            override fun onError(e: Exception?) {
+                progressBar.visibility = View.GONE
+            }
+        })
     }
 
-    open fun vibrate(mCon: Context) {
-        val v = mCon.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        // Vibrate for 500 milliseconds
-        v.vibrate(40)
-    }
-
-    private lateinit var  bundle: Bundle
+    private lateinit var bundle: Bundle
 
     open fun startActivityputExtra(mCon: Context, cls: Class<*>, key: String, o: Any) {
         try {
@@ -122,7 +124,7 @@ open class BaseAppActivity : AppCompatActivity() {
     }
 
     open interface AppOkInter {
-        open  fun onOk()
+        open fun onOk()
     }
 
 
@@ -141,7 +143,6 @@ open class BaseAppActivity : AppCompatActivity() {
             alertDialog.setCancelable(false)
         }
     }
-
 
 
 }
