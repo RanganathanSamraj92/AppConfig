@@ -1,4 +1,4 @@
-package dev.app.baseappconfig.base
+package dev.app.baseappconfig.activity
 
 import android.content.Context
 import android.os.Vibrator
@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import dev.app.baseappconfig.base.BaseAppActivity
 
 open class UtilsActivity : AppCompatActivity(){
 

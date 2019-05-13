@@ -1,4 +1,4 @@
-package dev.app.baseappconfig.base;
+package dev.app.baseappconfig.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
+import dev.app.baseappconfig.base.NetworkUtil;
 
 public class ConnectivityChangeActivity extends UtilsActivity {
 

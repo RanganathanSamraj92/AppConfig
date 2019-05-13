@@ -1,4 +1,4 @@
-package dev.app.baseappconfig.base
+package dev.app.baseappconfig.activity
 
 import android.Manifest
 import android.content.Intent
@@ -53,7 +53,7 @@ open class AppImagePickerActivity : PermissionsActivity() {
         }
     }
 
-    open suspend fun selectImageInAlbum(imagePickerListener:ImagePickerListener) {
+    open suspend fun selectImageInAlbum(imagePickerListener: ImagePickerListener) {
 
         setImagePicListenner(this)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -85,15 +85,19 @@ open class AppImagePickerActivity : PermissionsActivity() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
         if (intent.resolveActivity(packageManager) != null) {
-            startActivityForResult(intent, REQUEST_SELECT_IMAGE_IN_ALBUM)
+            startActivityForResult(intent,
+                REQUEST_SELECT_IMAGE_IN_ALBUM
+            )
         }
     }
 
-    open fun takePhoto(imagePickerListener:ImagePickerListener) {
+    open fun takePhoto(imagePickerListener: ImagePickerListener) {
         setImagePicListenner(this)
         val intent1 = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (intent1.resolveActivity(packageManager) != null) {
-            startActivityForResult(intent1, REQUEST_TAKE_PHOTO)
+            startActivityForResult(intent1,
+                REQUEST_TAKE_PHOTO
+            )
         }
     }
 

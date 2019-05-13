@@ -1,7 +1,6 @@
-package dev.app.baseappconfig.base
+package dev.app.baseappconfig.activity
 
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import com.github.florent37.runtimepermission.kotlin.PermissionException
 import com.github.florent37.runtimepermission.kotlin.coroutines.experimental.askPermission
 import kotlinx.coroutines.CoroutineScope
@@ -19,14 +18,14 @@ open class PermissionsActivity : UtilsActivity() {
 
     val scope = CoroutineScope(coroutineContext)
 
-    lateinit var permissionListener:PermissionListener
+    lateinit var permissionListener: PermissionListener
     open interface PermissionListener {
         open fun onGranted()
         open fun onDenied(deniedPermissions: List<String>)
         open fun onDeniedForeEver(deniedPermissions: List<String>)
     }
 
-    open  fun makePermissionsRequest(permissionListener: PermissionListener,vararg permissions: String) {
+    open  fun makePermissionsRequest(permissionListener: PermissionListener, vararg permissions: String) {
         try {
             scope.launch {
             val result = askPermission(*permissions)
